@@ -33,24 +33,25 @@ public class StateMachine : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.name + " entered");
+    { //State changes
+        //Debug.Log(other.name + " entered");
         if (other.name == "WaterTrigger")
         {
-            Debug.Log("Swimming");
-            //Swimming();
+            //Debug.Log("Swimming");
+            currentState = State.swimming;
         }
         else if (other.name == "MountainTrigger")
         {
-            Debug.Log("Climbing");
-            //Climbing();
+            //Debug.Log("Climbing");
+            currentState=State.climbing;
         }
     }
 
     void OnTriggerExit(Collider other)
-    {
+    { //Stage changes
         //Debug.Log(other.name + " exited");
-        Debug.Log("Walking");
+        //Debug.Log("Walking");
+        currentState = State.walking;
     }
 
     void Swimming()
@@ -63,21 +64,23 @@ public class StateMachine : MonoBehaviour
     }
 
     void Idle()
-    {
+    { //State changes
         Debug.Log("I am Idle.");
         if (lastPosition != transform.position)
         { //if last position is not current position = movement has occured
-            Debug.Log("Moving");
+            //Debug.Log("Moving");
+            currentState = State.walking;
         }
         lastPosition = transform.position; //update position when moving
     }
 
     void Walking()
-    {
+    { //Stage changes
         Debug.Log("I am walking!");
         if (lastPosition == transform.position)
         {
-            Debug.Log("Stopped");
+            //Debug.Log("Stopped");
+            currentState = State.idle;
         }
         lastPosition = transform.position;
     }
