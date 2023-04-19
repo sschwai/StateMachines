@@ -15,4 +15,22 @@ public class StateMachine : MonoBehaviour
     {
         
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
+        if (other.name == "WaterTrigger")
+        { Swimming(); }
+        else if (other.name == "MountainTrigger")
+        { Climbing(); }
+    }
+
+    void Swimming()
+    {
+        Debug.Log("I am swimming!");
+    }
+    void Climbing()
+    {
+        Debug.Log("I am climbing!");
+    }
 }
