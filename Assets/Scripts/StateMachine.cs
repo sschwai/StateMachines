@@ -4,25 +4,44 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public enum State
+    {
+        idle,
+        walking,
+        swimming,
+        climbing
+    }
+
+    public State currentState = State.idle; //default state
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        switch (currentState)
+        { 
+            case State.idle: Idle(); break;
+            case State.walking: Walking();  break;
+            case State.swimming: Swimming();  break;
+            case State.climbing: Climbing();  break;
+            default: break;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        Debug.Log(other.name + " entered");
         if (other.name == "WaterTrigger")
         { Swimming(); }
         else if (other.name == "MountainTrigger")
         { Climbing(); }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        Debug.Log(other.name + " exited");
     }
 
     void Swimming()
@@ -32,5 +51,15 @@ public class StateMachine : MonoBehaviour
     void Climbing()
     {
         Debug.Log("I am climbing!");
+    }
+
+    void Idle()
+    {
+        Debug.Log("I am Idle.");
+    }
+
+    void Walking()
+    {
+        Debug.Log("I am walking!");
     }
 }
